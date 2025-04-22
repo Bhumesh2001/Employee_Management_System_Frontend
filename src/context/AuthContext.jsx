@@ -1,38 +1,32 @@
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState } from 'react';
 import { login, getUserProfile, logout as apiLogout } from '../services/auth';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                const profile = await getUserProfile();
-                setUser(profile);
-            } catch (error) {
-                console.error('Failed to fetch user profile', error.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchUser();
-    }, []);
+    const [loading, setLoading] = useState(false);
 
     const loginUser = async (email, password, role) => {
-        await login(email, password, role); // token cookie set by server
-        const profile = await getUserProfile(); // get user details from token
-        setUser(profile);
+        try {
+            setLoading(true);
+            await login(email, password, role);         // server sets token
+            const profile = await getUserProfile();     // fetch user profile
+            setUser(profile);
+        } catch (error) {
+            console.error('Login failed:', error.message);
+            throw error;
+        } finally {
+            setLoading(false);
+        }
     };
 
     const logout = async (role) => {
         try {
-            await apiLogout(role); // clears cookie
+            await apiLogout(role); // clear cookie
             setUser(null);
         } catch (error) {
-            console.error('Logout failed', error);
+            console.error('Logout failed', error.message);
         }
     };
 
