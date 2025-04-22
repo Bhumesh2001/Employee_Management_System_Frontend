@@ -19,7 +19,7 @@
 import api from './api';
 
 export const login = async (email, password, role) => {
-    const response = await api.post(`/api/auth/login`, { email, password, role });
+    const response = await api.post(`/auth/login`, { email, password, role });
 
     const { token, ...userData } = response.data.data;
 
@@ -45,7 +45,7 @@ export const getUserProfile = async (role) => {
 
     if (!token) throw new Error('No token found');
 
-    const response = await api.get(`/api/auth/profile`, {
+    const response = await api.get(`/auth/profile`, {
         headers: {
             Authorization: `Bearer ${token}`
         }
