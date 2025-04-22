@@ -8,7 +8,7 @@ export default function AttendanceTracker() {
 
     const handleSignInOut = async (action) => {
         try {
-            const response = await api.post(`/api/attendance/${action}`);
+            const response = await api.post(`/attendance/${action}`);
             setAttendance(response.data.data);
             setError('');
         } catch (err) {

@@ -3,7 +3,7 @@ import api from '../../services/api';
 export default function LeaveList({ leaves }) {
     const handleStatusUpdate = async (leaveId, status) => {
         try {
-            await api.patch(`/api/leave/${leaveId}`, { status });
+            await api.patch(`/leave/${leaveId}`, { status });
             alert(`Leave ${status}`);
         } catch (err) {
             console.error(err);

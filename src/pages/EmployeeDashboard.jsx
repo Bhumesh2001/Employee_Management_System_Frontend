@@ -11,7 +11,7 @@ export default function EmployeeDashboard({ onLogout }) {
     useEffect(() => {
         const fetchPayslips = async () => {
             try {
-                const response = await api.get('/api/payslip/my');
+                const response = await api.get('/payslip/my');
                 setPayslips(response.data.data);
             } catch (err) {
                 alert(err.response?.data?.message || 'Failed to fetch payslips');

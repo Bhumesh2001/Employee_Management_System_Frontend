@@ -5,7 +5,7 @@ import jsPDF from 'jspdf';
 export default function PayslipList({ payslips }) {
     const handleDownloadPayslip = async (payslipId) => {
         try {
-            const response = await api.get(`/api/payslip/my`);
+            const response = await api.get(`/payslip/my`);
             const payslips = response.data.data;
 
             const payslip = payslips.find(p => p._id === payslipId);

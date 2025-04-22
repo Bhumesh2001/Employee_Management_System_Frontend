@@ -9,7 +9,7 @@ export default function LeaveForm() {
 
     const handleSubmit = async () => {
         try {
-            await api.post('/api/leave', leave);
+            await api.post('/leave', leave);
             alert('Leave applied successfully');
             setLeave({ startDate: '', endDate: '' });
             setError('');

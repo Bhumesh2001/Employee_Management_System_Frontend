@@ -16,9 +16,9 @@ export default function AdminDashboard({ onLogout }) {
         const fetchData = async () => {
             try {
                 const [empRes, leaveRes, attRes] = await Promise.all([
-                    api.get('/api/employee'),
-                    api.get('/api/leave'),
-                    api.get('/api/attendance/all'),
+                    api.get('/employee'),
+                    api.get('/leave'),
+                    api.get('/attendance/all'),
                 ]);
                 setEmployees(empRes.data.data);
                 setLeaves(leaveRes.data.data);
@@ -32,7 +32,7 @@ export default function AdminDashboard({ onLogout }) {
 
     const handleCreateEmployee = async (data) => {
         try {
-            const response = await api.post('/api/employee', data);
+            const response = await api.post('/employee', data);
             setEmployees([...employees, response.data.data]);
         } catch (err) {
             alert(err.response?.data?.message || 'Failed to create employee');
@@ -41,7 +41,7 @@ export default function AdminDashboard({ onLogout }) {
 
     const handleUpdateEmployee = async (data) => {
         try {
-            const response = await api.put(`/api/employee/${editEmployee._id}`, data);
+            const response = await api.put(`/employee/${editEmployee._id}`, data);
             setEmployees(employees.map(emp => (emp._id === editEmployee._id ? response.data.data : emp)));
             setEditEmployee(null);
         } catch (err) {
@@ -51,7 +51,7 @@ export default function AdminDashboard({ onLogout }) {
 
     const handleDeleteEmployee = async (id) => {
         try {
-            await api.delete(`/api/employee/${id}`);
+            await api.delete(`/employee/${id}`);
             setEmployees(employees.filter(emp => emp._id !== id));
         } catch (err) {
             alert(err.response?.data?.message || 'Failed to delete employee');
@@ -60,7 +60,7 @@ export default function AdminDashboard({ onLogout }) {
 
     const handleGeneratePayslip = async (employeeId) => {
         try {
-            await api.post('/api/payslip', {
+            await api.post('/payslip', {
                 employeeId,
                 month: 'April 2025',
                 amount: 55000,
