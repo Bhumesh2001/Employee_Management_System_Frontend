@@ -10,9 +10,9 @@ export const AuthProvider = ({ children }) => {
     const loginUser = async (email, password, role) => {
         try {
             setLoading(true);
-            const profile = await login(email, password, role);         // server sets token
-            // const profile = await getUserProfile();     // fetch user profile            
-            setUser({ name: profile.name, email: profile.email, role: profile.role });
+            await login(email, password, role);         // server sets token
+            const profile = await getUserProfile();     // fetch user profile            
+            setUser(profile);
         } catch (error) {
             console.error('Login failed:', error.message);
             throw error;
