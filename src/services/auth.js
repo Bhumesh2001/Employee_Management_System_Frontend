@@ -20,7 +20,9 @@ import api from './api';
 
 export const login = async (email, password, role) => {
     const response = await api.post(`/auth/login`, { email, password, role });
-
+    
+    console.log(response.data.data);
+    
     const { token, ...userData } = response.data.data;
 
     // Store the token in localStorage based on the role
