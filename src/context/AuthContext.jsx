@@ -13,7 +13,6 @@ export const AuthProvider = ({ children }) => {
                 const profile = await getUserProfile();
                 setUser(profile);
             } catch (err) {
-                console.log(err);
                 console.log('Auto-login failed');
             } finally {
                 setLoading(false);
